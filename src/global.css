@@ -1,0 +1,96 @@
+/** **************************************
+* Fonts: app
+*************************************** */
+
+/** **************************************
+* Fonts: options
+*************************************** */
+
+/** **************************************
+* Font UPBOLTERS
+*************************************** */
+
+@font-face {
+  font-family: 'UPBOLTERS';
+  src: url('/fonts/upbolters/UPBOLTERS.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura Bk BT';
+  src: url('/fonts/Futura-Book.ttf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura Md BT';
+  src: url('/fonts/Futura-Medium.ttf') format('opentype');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura Hv BT';
+  src: url('/fonts/Futura-Heavy.ttf') format('opentype');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura-Bold';
+  src: url('/fonts/Futura-Bold.otf') format('opentype');
+  font-style: normal;
+}
+
+/** **************************************
+* Plugins
+*************************************** */
+/* scrollbar */
+@import './components/scrollbar/styles.css';
+
+/* image */
+@import './components/image/styles.css';
+
+/* map */
+@import './components/map/styles.css';
+
+/* lightbox */
+@import './components/lightbox/styles.css';
+
+/* chart */
+@import './components/chart/styles.css';
+
+/** **************************************
+* Baseline
+*************************************** */
+html {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+body,
+#root,
+#root__layout {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 100%;
+  flex-direction: column;
+}
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: none;
+}
+input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+input[type='number']::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Iniciar sesión con Google</title>
+    <style>
+      .btn-google {
+        color: #545454;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 1px 2px 1px #ddd;
+        display: block;
+        width: 200px;
+        margin: 100px auto;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .btn-google img {
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Opcionalmente, puedes mostrar este botón -->
+    <!--[if IE 8]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+      <script src="https://cdn.auth0.com/js/polyfills/1.0/base64.min.js"></script>
+      <script src="https://cdn.auth0.com/js/polyfills/1.0/es5-shim.min.js"></script>
+    <![endif]-->
+
+    <!-- Incluir la librería de Auth0 -->
+    <script src="https://cdn.auth0.com/js/auth0/9.16/auth0.min.js"></script>
+    <script src="https://cdn.auth0.com/js/polyfills/1.0/object-assign.min.js"></script>
+
+    <script>
+      window.addEventListener("load", function () {
+        /// si es facebook
+        // Recuperar la configuración del lado del servidor
+        const urlParams = new URLSearchParams(window.location.search);
+        let platform = '';
+        let loginHint = urlParams.get('login_hint')?.trim();
+        if (loginHint) {
+          platform = loginHint.toLowerCase();
+          console.log('Platform:', platform);
+        }
+
+        /// si es facebook hacer el window mas ancho
+        if (platform === 'facebook') {
+          window.screen.width = 500;
+        }
+
+        // Handle the @@config@@ placeholder
+        let configJson = '@@config@@';
+        if (configJson.indexOf('{') !== 0) {
+          // Decode base64 and URI components if placeholder is replaced
+          configJson = window.atob(configJson);
+        }
+        let config = JSON.parse(configJson);
+
+        if (config && "internalOptions" in config) {
+          let leeway = config.internalOptions.leeway;
+          if (leeway) {
+            let convertedLeeway = parseInt(leeway);
+
+            if (!isNaN(convertedLeeway)) {
+              config.internalOptions.leeway = convertedLeeway;
+            }
+          }
+        }
+
+        let params = Object.assign(
+          {
+            overrides: {
+              __tenant: config.auth0Tenant,
+              __token_issuer: config.authorizationServer.issuer,
+            },
+            domain: config.auth0Domain,
+            clientID: config.clientID,
+            redirectUri: config.callbackURL,
+            responseType: "code",
+          },
+          config.internalOptions
+        );
+
+        let webAuth = new auth0.WebAuth(params);
+
+        function loginWithGoogle() {
+          webAuth.authorize(
+            {
+              connection: "google-oauth2",
+            },
+            function (err) {
+              if (err) displayError(err);
+            }
+          );
+        }
+
+        function loginWithApple() {
+          webAuth.authorize(
+            {
+              connection: "apple",
+            },
+            function (err) {
+              if (err) displayError(err);
+            }
+          );
+        }
+
+        function loginWithTwitter() {
+          webAuth.authorize(
+            {
+              connection: "twitter",
+            },
+            function (err) {
+              if (err) displayError(err);
+            }
+          );
+        }
+
+        function displayError(err) {
+          alert(err.description);
+        }
+
+        if (platform === 'google') {
+          loginWithGoogle();
+        } else if (platform === 'apple') {
+          loginWithApple();
+        } else if (platform === 'twitter') {
+          loginWithTwitter();
+        } else {
+          alert('Invalid or missing platform. Please specify a valid platform.');
+        }
+      });
+    </script>
+  </body>
+</html>
