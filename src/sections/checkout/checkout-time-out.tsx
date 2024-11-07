@@ -71,7 +71,7 @@ export function CheckoutTimeOut() {
             lineHeight: '30px',
           }}
         >
-          Tiempo para completar tu reserva
+          Tiempo agotado para completar tu reserva
         </Typography>
         <Box
           sx={{

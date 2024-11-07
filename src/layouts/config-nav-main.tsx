@@ -43,7 +43,7 @@ export const navData = [
     },
   },
   {
-    title: 'Quienes somos',
+    title: 'Quiénes somos',
     icon: <Iconify width={22} icon="solar:notebook-bold-duotone" />,
     path: paths.docs,
   },

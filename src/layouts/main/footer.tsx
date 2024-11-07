@@ -22,6 +22,7 @@ import { buttonFont } from 'src/theme/core';
 import { useCityStore } from 'src/store/useCityStore';
 
 import { Logo } from 'src/components/logo';
+import { Iconify } from 'src/components/iconify';
 import ButtonMichin from 'src/components/btn-michin';
 
 export const socialMedias = [
@@ -165,7 +166,17 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                       height={20}
                       style={{ marginRight: 10 }}
                     />
-                    55 9421 8850
+                    222 9 49 2340
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: pxToRem(14),
+                      display: 'flex',
+                      alignItems: 'center', // Improved alignment for the icon
+                    }}
+                  >
+                    <Iconify width={20} icon="ic:round-whatsapp" style={{ marginRight: 10 }} />
+                    222 4845952
                   </Typography>
                   <Typography
                     sx={{
@@ -331,7 +342,7 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                     Planifica tu visita
                   </Link>
                   <Link href={paths.contact} sx={{ display: 'block', color: 'white' }}>
-                    Quienes somos
+                    Quiénes somos
                   </Link>
                   <Link href={paths.faqs} sx={{ display: 'block', color: 'white' }}>
                     Conservación
@@ -355,15 +366,7 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                 >
                   Boletos
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: pxToRem(14),
-                    display: 'flex',
-                    alignItems: 'center', // Improved alignment for the icon
-                  }}
-                >
-                  Compra tu boleto online
-                </Typography>
+
                 <ButtonMichin
                   h={40}
                   icon="/assets/icons/home/ic-right.svg"

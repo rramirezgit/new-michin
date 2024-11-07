@@ -69,8 +69,7 @@ export default function AlRescate() {
               Kelly fue encontrada en una pileta de una casa en Veracruz, México, al borde de la
               muerte.{' '}
             </Typography>
-            Gracias al esfuerzo incansable de nuestro equipo, logramos rehabilitarla y devolverla al
-            océano, su verdadero hogar.
+            Gracias al esfuerzo incansable de nuestro equipo, logramos rehabilitarla.
           </Box>
 
           <Box

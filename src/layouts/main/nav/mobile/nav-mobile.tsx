@@ -58,7 +58,7 @@ const panels = [
 const links = [
   {
     id: 'Quienes somos',
-    label: 'Quienes somos',
+    label: 'Quiénes somos',
     path: '/quienes-somos',
   },
   {

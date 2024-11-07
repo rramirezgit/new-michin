@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs';
 
 import { DateCalendar } from '@mui/x-date-pickers';

@@ -3,7 +3,6 @@ import type { BoxProps } from '@mui/material/Box';
 import type { SxProps } from '@mui/material/styles';
 import type { StackProps } from '@mui/material/Stack';
 
-import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { m, useScroll, useSpring, useTransform, useMotionValueEvent } from 'framer-motion';
 
@@ -13,6 +12,8 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+
+import { useRouter } from 'src/routes/hooks';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -29,6 +30,8 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
   const theme = useTheme();
 
   const scroll = useScrollPercent();
+
+  const router = useRouter();
 
   const mdUp = useResponsive('up', mdKey);
 
@@ -49,24 +52,13 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
       <Typography
         sx={{
           fontFamily: 'UPBOLTERS',
-          fontSize: { xs: '40px', sm: '50px', md: '56px', lg: '58px' },
+          fontSize: { xs: '40px', sm: '46px', md: '48px', lg: '50px' },
           fontStyle: 'normal',
           fontWeight: '400',
           lineHeight: 'normal',
         }}
       >
-        MÁS QUE UN ACUARIO
-      </Typography>
-      <Typography
-        sx={{
-          fontSize: { xs: '23px', sm: '31px', md: '33px', lg: '35px' },
-          fontFamily: 'UPBOLTERS',
-          fontStyle: 'normal',
-          fontWeight: '400',
-          lineHeight: 'normal',
-        }}
-      >
-        EN MICHIN APRENDE DIVIRTIÉNDOTE
+        !VAMOS A DIVERTIRNOS EN GRANDE!
       </Typography>
     </MInview>
   );
@@ -74,7 +66,7 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
   const renderText = (
     <MInview>
       <Typography variant="subtitle2">
-        Compra tus boletos y disfruta de las actividades más increíbles
+        Conoce un lugar único y vive la experiencia Michin
       </Typography>
     </MInview>
   );
@@ -84,13 +76,14 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
       <MInview>
         <Button
           variant="michinStartIcon"
+          onClick={() => router.push('/tickets')}
           startIcon={<SvgColor src="/assets/icons/home/ic-ticket.svg" width={31} />}
         >
           Comprar boletos
         </Button>
       </MInview>
 
-      <MInview>
+      {/* <MInview>
         <Button
           variant="michin"
           startIcon={
@@ -99,7 +92,7 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
         >
           Ver actividades
         </Button>
-      </MInview>
+      </MInview> */}
     </Box>
   );
 

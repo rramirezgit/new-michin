@@ -1,12 +1,11 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { Product, Schedule } from 'src/store/ticketsStore';
-import { toast } from 'src/components/snackbar';
 
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 
-import { Alert, Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import { useCityStore } from 'src/store/useCityStore';
 import { useTicketStore } from 'src/store/ticketsStore';
@@ -33,7 +32,7 @@ interface Props {
 
 export default function TimeSelection({ onTimeClick, ticket }: Props) {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
-  const { fetchSchedules, selectedTickets } = useTicketStore();
+  const { fetchSchedules, selectedTickets, dateSelected } = useTicketStore();
   const { city } = useCityStore();
 
   const selectedTime = selectedTickets.find((ticketg) => ticketg.product?.sku === ticket.sku)?.time;
@@ -51,7 +50,7 @@ export default function TimeSelection({ onTimeClick, ticket }: Props) {
       if (city !== '') {
         const fetchedSchedules = await fetchSchedules(
           ticket.sku,
-          dayjs().format('YYYY-MM-DD'),
+          dateSelected || dayjs().add(1, 'day').format('YYYY-MM-DD'),
           city
         );
         setSchedules(fetchedSchedules);
@@ -63,7 +62,7 @@ export default function TimeSelection({ onTimeClick, ticket }: Props) {
     if (city !== '') {
       handleFetchSchedules();
     }
-  }, [city]);
+  }, [city, dateSelected]);
 
   return (
     <Box

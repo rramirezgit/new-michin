@@ -98,8 +98,8 @@ export function CheckoutSuccess() {
               maxWidth: '600px',
             }}
           >
-            Una vez recibas tu Ticket, el día de la visita acércate a nuestro acuario para
-            intercambiar tu acceso en taquilla y vivir tu aventura de manera increíble.
+            Una vez recibas tu Ticket, acércate a nuestro acuario para intercambiar tus accesos en
+            taquilla el día y la hora que seleccionaste. ¡Listos para una aventura increíble!
           </Typography>
         </Box>
         {user && (

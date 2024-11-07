@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { Card } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { useResponsive } from 'src/hooks/use-responsive';
-
 import { useTicketStore } from 'src/store/ticketsStore';
 
 import { useCheckout } from '../util/useChekout';
@@ -19,8 +17,6 @@ import TicketAccordion from './checkout-cart-accordion';
 
 export function CheckoutCart() {
   const { selectedTickets, dateSelected } = useTicketStore();
-
-  const smUp = useResponsive('up', 'sm');
 
   const [expandedTicketId, setExpandedTicketId] = useState<string | null>(null);
 

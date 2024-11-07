@@ -137,7 +137,9 @@ export default function GeneratePDF({
       >
         <tr>
           <td align="center" style={{ color: '#312a59', fontFamily: 'Arial, sans-serif' }}>
-            <p style={{ margin: '0', fontSize: '13px' }}>{interaction.productName}</p>
+            <p style={{ margin: '0', fontSize: '13px' }}>
+              {interaction.quantity}x {interaction.productName}
+            </p>
             <p style={{ margin: '0px 0 0 0', fontSize: '13px' }}>
               {interaction.startTime} - {interaction.endTime}
             </p>
@@ -173,6 +175,38 @@ export default function GeneratePDF({
                   }}
                 >
                   <tbody>
+                    <tr>
+                      <td align="center">
+                        <table
+                          width="100%"
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                        >
+                          <tr style={{ width: '100%' }}>
+                            <td style={{ width: '50%', textAlign: 'left' }}>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  alignItems: 'end',
+                                  padding: '0 10px',
+                                }}
+                              >
+                                <img
+                                  src="/assets/michinCDM.png"
+                                  alt="Logo 1"
+                                  style={{ width: '140px', height: '40px' }}
+                                />
+                                <img
+                                  src="/assets/Am.png"
+                                  alt="Logo 2"
+                                  style={{ width: '70px', height: '64px' }}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
                     <tr>
                       <td
                         align="center"
@@ -266,8 +300,8 @@ export default function GeneratePDF({
                                           <img
                                             src={qrCodeURL}
                                             alt="QR Code"
-                                            width="150"
-                                            height="150"
+                                            width="250"
+                                            height="250"
                                             style={{ display: 'block', margin: '0 auto' }}
                                           />
                                         </td>

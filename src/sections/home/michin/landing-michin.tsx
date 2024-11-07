@@ -37,7 +37,7 @@ export function LandingMichin() {
   if (showSelectedCity) return <CitySelector />;
 
   return (
-    <MainLayout showSelectCity>
+    <MainLayout showSelectCity slotsDisplay={{ topArea: true }}>
       <MotionViewport>
         <BackToTop />
         <HomeHeroMichin />

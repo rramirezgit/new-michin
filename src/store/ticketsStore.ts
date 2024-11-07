@@ -1,3 +1,6 @@
+import type { Dayjs } from 'dayjs';
+
+import dayjs from 'dayjs';
 import { create } from 'zustand';
 
 import { getStorage, setStorage } from 'src/hooks/use-local-storage';
@@ -127,7 +130,7 @@ type Action = {
   setCartButtonRef: (ref: React.RefObject<HTMLButtonElement>) => void;
   toggleCart: () => void;
   fetchSchedules: (sku: string, date: string, city: string) => Promise<Schedule[]>;
-  setDateSelected: (date: string) => void;
+  setDateSelected: (date: string | Dayjs) => void;
   setActiveStep: (checkout: Checkout) => void;
   createReserve: (
     reserverData: TReserverData[],
@@ -141,7 +144,7 @@ type Action = {
   reload: () => void;
 };
 
-export const useTicketStore = create<State & Action>((set, get) => {
+export const useTicketStore = create<State & Action>((set, get): any => {
   let initialSelectedTickets: SelectedTicket[] = [];
   let initialOrderCheckout: OrderCheckout = {
     sourceId: '',
@@ -199,7 +202,7 @@ export const useTicketStore = create<State & Action>((set, get) => {
     totalPrice: initialTotalPrice,
     loading: false,
     idTicketSelected: '',
-    dateSelected: '',
+    dateSelected: dayjs().add(1, 'day'),
     products: [],
     selectedTickets: initialSelectedTickets,
     activeFilter: 'accesos',
@@ -284,7 +287,7 @@ export const useTicketStore = create<State & Action>((set, get) => {
         const response = await axiosInstance.get<FetchSchedulesResponse>(
           endpoints_minchin.Schedules.replace(':city', city)
             .replace(':sku', sku)
-            .replace(':date', '2024-09-01') // date
+            .replace(':date', date) // '2024-09-01'
         );
         return response.data.schedules;
       } catch (error) {
@@ -293,7 +296,7 @@ export const useTicketStore = create<State & Action>((set, get) => {
       }
     },
     setDateSelected: (date: string) => {
-      set({ dateSelected: date, orderCheckout: { ...get().orderCheckout, eventDate: date } });
+      set({ dateSelected: date });
     },
     setActiveStep: ({ activeStep, completed = false }: Checkout) =>
       set({
@@ -328,9 +331,11 @@ export const useTicketStore = create<State & Action>((set, get) => {
         });
 
         get().setSelectedTickets(newListTickets);
-
         set({
-          orderCheckout: { ...get().orderCheckout, eventDate },
+          orderCheckout: {
+            ...get().orderCheckout,
+            eventDate: dayjs(eventDate).format('YYYY-MM-DD'),
+          },
         });
 
         return results;

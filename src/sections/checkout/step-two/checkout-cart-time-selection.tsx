@@ -53,7 +53,11 @@ export default function TimeSelection({ onTimeClick, ticket, accessTime }: Props
 
   const handleFetchSchedules = async () => {
     if (city !== '') {
-      const fetchedSchedules = await fetchSchedules(ticket.sku, dayjs().format('YYYY-MM-DD'), city);
+      const fetchedSchedules = await fetchSchedules(
+        ticket.sku,
+        dayjs(dateSelected || dayjs().add(1, 'day')).format('YYYY-MM-DD'),
+        city
+      );
       setSchedules(fetchedSchedules);
     }
   };
@@ -61,10 +65,10 @@ export default function TimeSelection({ onTimeClick, ticket, accessTime }: Props
   useEffect(() => {
     setNoAvailableSlots(isAvailableSlots({ ticket }));
     // Validar si el selectedTime tiene aún disponibles
-    const selectedSchedule = schedules.find(
+    const selectedSchedule = schedules?.find(
       (schedule) => `${schedule.startTime} a ${schedule.endTime}` === selectedTime
     );
-    if (selectedSchedule && selectedSchedule.availableSlots <= 0) {
+    if (selectedSchedule && selectedSchedule?.availableSlots <= 0) {
       setErrorTime(true);
     } else {
       setErrorTime(false);
@@ -72,9 +76,8 @@ export default function TimeSelection({ onTimeClick, ticket, accessTime }: Props
   }, [city, ticket, schedules, selectedTime]);
 
   useEffect(() => {
-    // Refrescar los schedules cada vez que se vuelva a montar el componente
     handleFetchSchedules();
-  }, []);
+  }, [dateSelected]);
 
   return (
     <Box
@@ -174,7 +177,7 @@ export default function TimeSelection({ onTimeClick, ticket, accessTime }: Props
           height: schedules?.length === 0 ? '100%' : 'auto',
         }}
       >
-        {schedules?.length === 0 ? (
+        {schedules?.length === 0 || !schedules ? (
           <Box
             sx={{
               display: 'flex',

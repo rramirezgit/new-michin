@@ -24,10 +24,19 @@ const useOpenpay = () => {
   const router = useRouter();
   const onSuccess = async (response: any) => {
     setOrderCheckout({ ...orderCheckout, sourceId: response.data.id });
-
-    await createOrder({ ...orderCheckout, sourceId: response.data.id, store: city });
-    router.push('/product/checkout/success');
-    setLoading(false);
+    createOrder({ ...orderCheckout, sourceId: response.data.id, store: city })
+      .then(() => {
+        new Promise((resolve) => {
+          router.push('/product/checkout/success');
+          resolve(true);
+        }).finally(() => {
+          setLoading(false);
+        });
+      })
+      .catch(() => {
+        router.push('/tickets');
+        setLoading(false);
+      });
   };
 
   const onError = (response: any) => {
