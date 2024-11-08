@@ -58,14 +58,21 @@ export function HomeHeroMichin({ sx, ...other }: StackProps) {
           lineHeight: 'normal',
         }}
       >
-        !VAMOS A DIVERTIRNOS EN GRANDE!
+        VAMOS A DIVERTIRNOS EN GRANDE
       </Typography>
     </MInview>
   );
 
   const renderText = (
     <MInview>
-      <Typography variant="subtitle2">
+      <Typography
+        sx={{
+          fontSize: { xs: '23px', sm: '31px', md: '33px', lg: '25px' },
+          fontStyle: 'normal',
+          fontWeight: '400',
+          lineHeight: 'normal',
+        }}
+      >
         Conoce un lugar único y vive la experiencia Michin
       </Typography>
     </MInview>
