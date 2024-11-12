@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import Image from 'next/image';
+import { useEffect } from 'react';
 import * as IconsSocials from '#/assets/icons/socials';
 
 import Box from '@mui/material/Box';
@@ -10,7 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, CircularProgress } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -54,8 +56,14 @@ export type FooterProps = {
 
 export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: FooterProps) {
   const theme = useTheme();
-  const { setCity, city } = useCityStore();
+  const { setCity, city, getSchedules, schedules, getSchedulesByDay, schedulesByDay, loading } =
+    useCityStore();
   const router = useRouter();
+
+  useEffect(() => {
+    getSchedules();
+    getSchedulesByDay();
+  }, [city]);
 
   return (
     <Box
@@ -226,98 +234,44 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                     borderRadius: '15px',
                   }}
                 >
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        fontWeight: 'bold',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Lunes a Jueves
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Instalaciones: 10am a 20pm
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Taquilla: 10am a 18pm
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        fontWeight: 'bold',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Viernes
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Instalaciones: 10am a 21pm
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Taquilla: 10am a 19pm
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        fontWeight: 'bold',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Sábado y Domingo
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Instalaciones: 9am a 22pm
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: pxToRem(14),
-                        display: 'flex',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Taquilla: 9am a 19pm
-                    </Typography>
-                  </Box>
+                  {loading ? (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    schedules.map((schedule) => (
+                      <Box key={schedule.day}>
+                        <Typography
+                          sx={{
+                            fontSize: pxToRem(14),
+                            display: 'flex',
+                            fontWeight: 'bold',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {schedule.day}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: pxToRem(14),
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          Instalaciones: {schedule.accessOpen} a {schedule.accessClose}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: pxToRem(14),
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          Taquilla: {schedule.ticketOfficeOpen} a {schedule.ticketOfficeClose}
+                        </Typography>
+                      </Box>
+                    ))
+                  )}
                 </Box>
               </Box>
               <Box>

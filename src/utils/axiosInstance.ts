@@ -44,4 +44,8 @@ export const endpoints_minchin = {
     orderByID: '/orders/:id',
     updateUser: '/auth/update',
   },
+  facilitiesSchedule: {
+    findAll: '/facilities-schedules?store=:storeId',
+    byDay: '/facilities-schedules/day?day=:day&store=:storeId',
+  },
 };

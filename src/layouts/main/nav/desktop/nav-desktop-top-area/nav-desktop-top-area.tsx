@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, CircularProgress } from '@mui/material';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -11,7 +11,7 @@ import { LocationSort } from './nav-desktop-select';
 const NavTopArea = ({ showSelectCity = false }: { showSelectCity?: boolean }) => {
   const mdUp = useResponsive('up', 'md');
 
-  const { setCity, city } = useCityStore();
+  const { setCity, city, schedulesByDay, loading } = useCityStore();
 
   return (
     <Container
@@ -33,7 +33,11 @@ const NavTopArea = ({ showSelectCity = false }: { showSelectCity?: boolean }) =>
         }}
       >
         <Typography variant="overline" color="common.darkBlue">
-          ABIERTO HOY 9:00Am - 5:00PM
+          {loading ? (
+            <CircularProgress size={17} />
+          ) : (
+            `ABIERTO HOY ${schedulesByDay.accessOpen} - ${schedulesByDay.accessClose}`
+          )}
         </Typography>
         {mdUp && showSelectCity && (
           <LocationSort
