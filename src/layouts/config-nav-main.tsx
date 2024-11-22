@@ -1,4 +1,4 @@
-import { paths } from 'src/routes/paths';
+import { paths, getFullPath } from 'src/routes/paths';
 
 import IconAM from 'src/components/svg/AM';
 import { Iconify } from 'src/components/iconify';
@@ -45,7 +45,7 @@ export const navData = [
   {
     title: 'Quiénes somos',
     icon: <Iconify width={22} icon="solar:notebook-bold-duotone" />,
-    path: paths.docs,
+    path: getFullPath(paths.general.quienesSomos),
   },
   {
     title: 'Preservación y Conservación',

@@ -15,7 +15,7 @@ import IconAMText from 'src/components/svg/AMtext';
 
 const CitySelector = () => {
   const smUp = useResponsive('up', 'sm');
-  const { setCity } = useCityStore();
+  const { setCity, city: initialCity } = useCityStore();
 
   const handleCity = (city: City) => {
     setCity(city);
@@ -239,8 +239,8 @@ const CitySelector = () => {
             </Typography>
           </Typography>
           <Box>
-            {socialMedias.map((social) => (
-              <IconButton key={social.href} href={social.href}>
+            {socialMedias('CDMX').map((social) => (
+              <IconButton key={social.href} href={social.href} target="_blank">
                 <social.Icon width={smUp ? 44 : 40} height={smUp ? 44 : 40} />
               </IconButton>
             ))}

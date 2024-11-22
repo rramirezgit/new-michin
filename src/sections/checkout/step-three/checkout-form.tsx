@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { FieldErrors } from 'react-hook-form';
+import type { typeCity } from 'src/layouts/main/footer';
 
 import { useState, useEffect } from 'react';
 
@@ -15,9 +16,11 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import { useResponsive } from 'src/hooks/use-responsive';
+import { paths, getFullPath } from 'src/routes/paths';
+
 import { getStorage, setStorage } from 'src/hooks/use-local-storage';
 
+import { useCityStore } from 'src/store/useCityStore';
 import { useTicketStore } from 'src/store/ticketsStore';
 import { KeysLocalStorage } from 'src/store/localStorage';
 
@@ -34,10 +37,9 @@ import type { FormData } from './checkout-form-accordion';
 // ----------------------------------------------------------------------
 
 export function CheckoutForm() {
-  const { maxAdultCount, maxChildCount, setAttendees } = useTicketStore();
+  const { maxAdultCount, maxChildCount } = useTicketStore();
 
-  const smUp = useResponsive('up', 'sm');
-
+  const { city } = useCityStore();
   const [expandedTicketId, setExpandedTicketId] = useState<number | null>(null);
   const [holder, setHolder] = useState<any>(null);
 
@@ -238,7 +240,7 @@ export function CheckoutForm() {
                   }
                   label={
                     <Link
-                      href="https://example.com/responsiva"
+                      href={getFullPath(paths[city as typeCity].terminosCondiciones)}
                       target="_blank"
                       rel="noopener"
                       sx={{
@@ -263,7 +265,7 @@ export function CheckoutForm() {
                   }
                   label={
                     <Link
-                      href="https://example.com/aviso-privacidad"
+                      href={getFullPath(paths[city as typeCity].avisoPrivacidad)}
                       target="_blank"
                       rel="noopener"
                       sx={{

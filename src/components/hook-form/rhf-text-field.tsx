@@ -1,3 +1,4 @@
+import type { InputProps } from '@mui/material';
 import type { TextFieldProps } from '@mui/material/TextField';
 
 import { Controller, useFormContext } from 'react-hook-form';
@@ -9,9 +10,17 @@ import TextField from '@mui/material/TextField';
 type Props = TextFieldProps & {
   name: string;
   colorInput?: string;
+  inputProps?: InputProps;
 };
 
-export function RHFTextField({ name, helperText, type, colorInput = 'white', ...other }: Props) {
+export function RHFTextField({
+  name,
+  helperText,
+  type,
+  colorInput = 'white',
+  inputProps,
+  ...other
+}: Props) {
   const { control } = useFormContext();
 
   return (
@@ -35,6 +44,7 @@ export function RHFTextField({ name, helperText, type, colorInput = 'white', ...
           helperText={error?.message ?? helperText}
           inputProps={{
             autoComplete: 'off',
+            ...inputProps,
           }}
           InputLabelProps={{
             style: { color: colorInput }, // Asegura que la etiqueta sea siempre blanca

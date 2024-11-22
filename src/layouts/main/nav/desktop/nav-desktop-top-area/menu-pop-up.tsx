@@ -1,10 +1,14 @@
+import type { typeCity } from 'src/layouts/main/footer';
+
 import React from 'react';
 import Image from 'next/image';
 
-import { useTheme } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 
+import { paths, getFullPath } from 'src/routes/paths';
+
 import { pxToRem } from 'src/theme/styles';
+import { useCityStore } from 'src/store/useCityStore';
 
 import MapIcon from 'src/components/svg/Map';
 import DocIcon from 'src/components/svg/Doc';
@@ -46,8 +50,7 @@ const panels = [
 
 // Componente principal MenuPopUp
 const MenuPopUp: React.FC = () => {
-  const theme = useTheme();
-
+  const { city } = useCityStore();
   return (
     <Box>
       <Box
@@ -87,16 +90,19 @@ const MenuPopUp: React.FC = () => {
               title="Horarios y Dirección"
               subtitle="Abierto 365 días al año - Calz. San Juan de Aragón 399, Granjas Modernas CDMX"
               Icon={CalendarIcon}
+              href={getFullPath(paths[city as typeCity].horariosDireccion)}
             />
             <MenuSection
               title="Mapa de Acuario y Eventos"
               subtitle="Conoce nuestros rincones y anótate a nuestros eventos."
               Icon={MapIcon}
+              href={getFullPath(paths[city as typeCity].eventosMapa)}
             />
             <MenuSection
               title="Políticas de Accesos"
               subtitle="Conoce todas nuestras políticas obligatorias."
               Icon={DocIcon}
+              href={getFullPath(paths[city as typeCity].politicasAccesos)}
             />
           </Box>
         </Box>
@@ -122,17 +128,20 @@ const MenuPopUp: React.FC = () => {
               title="Boletos y Actividades"
               subtitle="Accesos a partir de $369. Las entradas son limitadas y no hay reservaciones."
               Icon={TicketsIcon}
+              href={getFullPath(paths[city as typeCity].actividadesInteracciones)}
             />
 
             <MenuSection
               title="Servicios e Instalaciones"
               subtitle="Descubre todo lo que puedas hacer en nuestras instalaciones."
               Icon={ServiciosIcon}
+              href={getFullPath(paths[city as typeCity].serviciosInstalaciones)}
             />
             <MenuSection
               title="Preguntas Frecuentes"
               subtitle="¿Tenes dudas? Estamos para ayudarte."
               Icon={FAQIcon}
+              href={getFullPath(paths[city as typeCity].preguntasFrecuentes)}
             />
           </Box>
         </Box>

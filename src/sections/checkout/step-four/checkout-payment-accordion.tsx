@@ -55,9 +55,26 @@ export default function CheckoutPaymentAccordion({
     return () => subscription.unsubscribe();
   }, [watch, errors, onChangeForms]);
 
-  const inputRef = useMask({ mask: '____ ____ ____ ____', replacement: '_' });
-  const expiryDateRef = useMask({ mask: '__/__', replacement: '_' });
-  const cvvRef = useMask({ mask: '____', replacement: '_' });
+  const inputRef = useMask({
+    mask: '#### #### #### ####', // Utiliza el símbolo '#' en lugar de '9'
+    replacement: {
+      '#': /\d/, // Permitir solo dígitos numéricos
+    },
+  });
+
+  const expiryDateRef = useMask({
+    mask: '##/##',
+    replacement: {
+      '#': /\d/, // Permitir solo dígitos numéricos
+    },
+  });
+
+  const cvvRef = useMask({
+    mask: '####',
+    replacement: {
+      '#': /\d/, // Permitir solo dígitos numéricos
+    },
+  });
 
   const handleScriptLoad = () => {
     if (window?.OpenPay) {

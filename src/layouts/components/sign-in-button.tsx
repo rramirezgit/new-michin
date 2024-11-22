@@ -55,7 +55,7 @@ export function SignInIconButton({ sx, ...other }: ButtonProps) {
     <>
       <IconButton
         component={RouterLink}
-        href={isAuthenticated || isAuthenticatedAuth0 ? '#' : paths.auth.login}
+        href={isAuthenticated || isAuthenticatedAuth0 ? '#' : paths.michin.user.profile}
         sx={sx}
         {...other}
         onClick={isAuthenticated || isAuthenticatedAuth0 ? handleClick : () => {}}

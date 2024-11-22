@@ -106,7 +106,6 @@ export function CheckoutActions({
       setCustumerData({
         name: dataPersons?.titular.name,
         lastName: dataPersons?.titular.lastName,
-        email: dataPersons?.titular.email,
         phone: dataPersons?.titular.phone,
         zipCode: dataPersons?.titular.zipCode,
         birthDate: dataPersons?.titular.birthday,

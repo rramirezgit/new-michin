@@ -33,7 +33,7 @@ interface Props {
 export default function TimeSelection({ onTimeClick, ticket }: Props) {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const { fetchSchedules, selectedTickets, dateSelected } = useTicketStore();
-  const { city } = useCityStore();
+  const { city, schedulesByDay } = useCityStore();
 
   const selectedTime = selectedTickets.find((ticketg) => ticketg.product?.sku === ticket.sku)?.time;
 
@@ -101,7 +101,7 @@ export default function TimeSelection({ onTimeClick, ticket }: Props) {
             >
               Horarios de Ingreso
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 color: '#919EAB',
                 fontFamily: 'Futura Bk BT',
@@ -110,8 +110,8 @@ export default function TimeSelection({ onTimeClick, ticket }: Props) {
                 lineHeight: 'normal',
               }}
             >
-              Abierto de 10:00 a 18:00
-            </Typography>
+              Abierto de {schedulesByDay.accessOpen} - {schedulesByDay.accessClose}
+            </Typography> */}
           </Box>
         </Box>
         {availableSlots && (

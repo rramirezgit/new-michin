@@ -22,6 +22,7 @@ import { Form, Field } from 'src/components/hook-form';
 
 export default function LoginScreen() {
   const { loginWithPopup, getAccessTokenSilently } = useAuth0();
+  const { postLoginRedirectPath } = useAuthStore();
   const { login } = useAuthStore();
   const { fetchUser } = useUserStore();
   const [error, setError] = useState('');
@@ -46,7 +47,7 @@ export default function LoginScreen() {
     try {
       await login(data.email, data.password);
       await fetchUser();
-      router.push('/');
+      router.push(postLoginRedirectPath || '/');
     } catch (errorr) {
       setError(errorr.response.data.message);
     }

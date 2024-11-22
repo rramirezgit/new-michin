@@ -16,11 +16,80 @@ const ROOTS = {
 
 // ----------------------------------------------------------------------
 
+export const getFullPath = (path: string) => `${paths.baseUrl}${path}`;
+
+export const getSocialMediaPath = (
+  city?: keyof typeof paths.socialMedia,
+  socialMedia?: keyof (typeof paths.socialMedia)[keyof typeof paths.socialMedia]
+) => paths.socialMedia[city ?? 'CDMX'][socialMedia ?? 'facebook'];
+
+// 'CDMX' | 'GDL' | 'PUE'
 export const paths = {
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || '', // Asegúrate de usar tu variable de entorno aquí
   michin: {
     tickets: '/tickets',
     user: {
       profile: '/user',
+    },
+  },
+  general: {
+    quienesSomos: '/quienes-somos',
+    comingSoon: '/coming-soon',
+  },
+  PUE: {
+    horariosDireccion: '/puebla-horarios-direccion',
+    eventosMapa: '/puebla-eventos-y-mapa',
+    actividadesInteracciones: '/puebla-actividades-e-interacciones',
+    serviciosInstalaciones: '/puebla-servicios-e-instalaciones',
+    politicasAccesos: '/puebla-politicas-de-accesos',
+    preguntasFrecuentes: '/puebla-preguntas-frecuentes',
+    contacto: '/puebla-contacto',
+    terminosCondiciones: '/puebla-terminos-y-condiciones',
+    avisoPrivacidad: '/puebla-aviso-de-privacidad',
+    quienesSomos: '/puebla-quienes-somos',
+    tickets: '/puebla-boletos-y-actividades',
+  },
+  CDMX: {
+    horariosDireccion: '/cdmx-horarios-direccion',
+    eventosMapa: '/cdmx-eventos-y-mapa',
+    actividadesInteracciones: '/cdmx-actividades-e-interacciones',
+    serviciosInstalaciones: '/cdmx-servicios-e-instalaciones',
+    politicasAccesos: '/cdmx-politicas-de-accesos',
+    preguntasFrecuentes: '/cdmx-preguntas-frecuentes',
+    contacto: '/cdmx-contacto',
+    terminosCondiciones: '/cdmx-terminos-y-condiciones',
+    avisoPrivacidad: '/cdmx-aviso-de-privacidad',
+    quienesSomos: '/cdmx-quienes-somos',
+    tickets: '/tickets',
+  },
+  GDL: {
+    horariosDireccion: '/guadalajara-horarios-direccion',
+    eventosMapa: '/guadalajara-eventos-y-mapa',
+    actividadesInteracciones: '/guadalajara-actividades-e-interacciones',
+    serviciosInstalaciones: '/guadalajara-servicios-e-instalaciones',
+    politicasAccesos: '/guadalajara-politicas-de-accesos',
+    preguntasFrecuentes: '/guadalajara-preguntas-frecuentes',
+    contacto: '/guadalajara-contacto',
+    terminosCondiciones: '/guadalajara-terminos-y-condiciones',
+    avisoPrivacidad: '/guadalajara-aviso-de-privacidad',
+    quienesSomos: '/guadalajara-quienes-somos',
+    tickets: '/guadalajara-boletos-y-actividades',
+  },
+  socialMedia: {
+    CDMX: {
+      facebook: 'https://www.facebook.com/acuariomichin.ciudaddemexico',
+      instagram: 'https://www.instagram.com/acuariomichin.ciudaddemexico/',
+      youtube: 'https://www.youtube.com/@AcuarioMichinCDMX',
+    },
+    PUE: {
+      facebook: 'https://www.facebook.com/acuariomichinpuebla',
+      instagram: 'https://www.instagram.com/acuariomichinpuebla/',
+      youtube: 'https://www.youtube.com/channel/UCLtZuqWGqdzY0C7N75yoNSw',
+    },
+    GDL: {
+      facebook: 'https://www.facebook.com/AcuarioMichinGuadalajara',
+      instagram: 'https://www.instagram.com/acuariomichinguadalajara/',
+      youtube: 'https://www.youtube.com/@AcuarioMichinGuadalajara',
     },
   },
 

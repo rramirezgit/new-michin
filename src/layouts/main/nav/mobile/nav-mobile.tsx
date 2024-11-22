@@ -1,3 +1,5 @@
+import type { City } from 'src/store/useCityStore';
+
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -6,6 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import { Avatar, Typography } from '@mui/material';
 
 import { RouterLink } from 'src/routes/components';
+import { paths, getFullPath } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { pxToRem } from 'src/theme/styles';
@@ -20,36 +23,37 @@ import ButtonMichin from 'src/components/btn-michin';
 import AccordionMenuMobile from './nav-mobile-accordions';
 import { LocationSort } from '../desktop/nav-desktop-top-area/nav-desktop-select';
 
+import type { typeCity } from '../../footer';
 import type { NavMainProps } from '../types';
 
-const panels = [
+const panels = (city: City) => [
   {
     id: 'panel1',
     header: 'Planifica tu visita',
     content: [
       {
         label: 'Horarios y Dirección',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].horariosDireccion),
       },
       {
         label: 'Mapa de Acuario y Eventos',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].eventosMapa),
       },
       {
         label: 'Servicios',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].serviciosInstalaciones),
       },
       {
         label: 'Boletos y Actividades',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].actividadesInteracciones),
       },
       {
         label: 'Políticas de Accesos',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].politicasAccesos),
       },
       {
         label: 'Contacto',
-        path: '/conoce-y-compra-tus-accesos',
+        path: getFullPath(paths[city as typeCity].contacto),
       },
     ],
   },
@@ -59,13 +63,13 @@ const links = [
   {
     id: 'Quienes somos',
     label: 'Quiénes somos',
-    path: '/quienes-somos',
+    path: getFullPath(paths.general.quienesSomos),
   },
-  {
-    id: 'Conservación',
-    label: 'Conservación',
-    path: '/conservacion',
-  },
+  // {
+  //   id: 'Conservación',
+  //   label: 'Conservación',
+  //   path: getFullPath(paths[city as typeCity].conservacion),
+  // },
 ];
 
 // ----------------------------------------------------------------------
@@ -224,7 +228,7 @@ export function NavMobile({
           flex="1 1 auto"
           sx={{ p: 3, pt: 0 }}
         >
-          <AccordionMenuMobile panels={panels} />
+          <AccordionMenuMobile panels={panels(city)} />
           {links.map((item) => (
             <Typography
               key={item.path}

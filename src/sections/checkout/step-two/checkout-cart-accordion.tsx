@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import dayjs from 'dayjs';
+import { useEffect } from 'react';
 
 import { DateCalendar } from '@mui/x-date-pickers';
 import { Box, Accordion, Typography, AccordionSummary, AccordionDetails } from '@mui/material';
@@ -36,6 +37,13 @@ export default function TicketAccordion({
   const handleDateChange = (newValue: any) => {
     if (newValue) {
       setDateSelected(newValue);
+      setSelectedTickets(
+        selectedTickets.map((ticketa) => ({
+          ...ticketa,
+          time: undefined,
+          availabilityId: undefined,
+        }))
+      );
     }
   };
 
@@ -58,6 +66,15 @@ export default function TicketAccordion({
     });
     setSelectedTickets(updateTicket);
   };
+  useEffect(() => {
+    setSelectedTickets(
+      selectedTickets.map((ticketa) => ({
+        ...ticketa,
+        time: undefined,
+        availabilityId: undefined,
+      }))
+    );
+  }, []);
 
   return (
     <Accordion

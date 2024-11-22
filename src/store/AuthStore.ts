@@ -21,6 +21,7 @@ type DataSignup = {
 };
 
 interface AuthState {
+  postLoginRedirectPath: string | null;
   loading: boolean;
   isAuthenticated: boolean;
   userAuth0: string | null;
@@ -31,6 +32,7 @@ interface AuthState {
   sendEmailChangePassword: (email: string) => Promise<void>;
   validatePasswordChange: (token: string, email: string, password: string) => Promise<void>;
   getUserAuth0: () => Promise<void>;
+  setPostLoginRedirectPath: (path: string) => void;
 }
 
 const useAuthStore = create<AuthState>((set) => {
@@ -43,6 +45,7 @@ const useAuthStore = create<AuthState>((set) => {
 
   return {
     loading: false,
+    postLoginRedirectPath: null,
     isAuthenticated: initialAuthenticated,
     userAuth0: null,
     accessToken: initialAccessToken,
@@ -114,6 +117,9 @@ const useAuthStore = create<AuthState>((set) => {
         console.error('Error al validar el cambio de contraseña:', error);
         throw error;
       }
+    },
+    setPostLoginRedirectPath: (path: string) => {
+      set({ postLoginRedirectPath: path });
     },
   };
 });

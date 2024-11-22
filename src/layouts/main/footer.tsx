@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import type { City } from 'src/store/useCityStore';
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import Image from 'next/image';
@@ -14,8 +15,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import { Button, IconButton, CircularProgress } from '@mui/material';
 
-import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
+import { paths, getFullPath, getSocialMediaPath } from 'src/routes/paths';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
@@ -27,22 +28,24 @@ import { Logo } from 'src/components/logo';
 import { Iconify } from 'src/components/iconify';
 import ButtonMichin from 'src/components/btn-michin';
 
-export const socialMedias = [
+export type typeCity = 'CDMX' | 'GDL' | 'PUE';
+
+export const socialMedias = (city: City) => [
   {
     Icon: IconsSocials.icFacebook,
-    href: 'https://www.facebook.com/AcuarioMichin',
+    href: getSocialMediaPath(city as typeCity, 'facebook'),
   },
   {
     Icon: IconsSocials.icInstagram,
-    href: 'https://www.instagram.com/acuariomichin/',
+    href: getSocialMediaPath(city as typeCity, 'instagram'),
   },
-  {
-    Icon: IconsSocials.icX,
-    href: 'https://x.com/AcuarioMichin',
-  },
+  // {
+  //   Icon: IconsSocials.icX,
+  //   href: getSocialMediaPath(city, 'x'),
+  // },
   {
     Icon: IconsSocials.icYoutube,
-    href: 'https://www.youtube.com/@acuariomichin',
+    href: getSocialMediaPath(city as typeCity, 'youtube'),
   },
 ];
 
@@ -56,8 +59,7 @@ export type FooterProps = {
 
 export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: FooterProps) {
   const theme = useTheme();
-  const { setCity, city, getSchedules, schedules, getSchedulesByDay, schedulesByDay, loading } =
-    useCityStore();
+  const { setCity, city, getSchedules, schedules, getSchedulesByDay, loading } = useCityStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -205,7 +207,7 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                   </Typography>
 
                   <Box>
-                    {socialMedias.map((social) => (
+                    {socialMedias(city).map((social) => (
                       <IconButton key={social.href} href={social.href}>
                         <social.Icon width={48} height={48} />
                       </IconButton>
@@ -292,19 +294,31 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                     gap: '24px',
                   }}
                 >
-                  <Link href={paths.about} sx={{ display: 'block', color: 'white' }}>
+                  {/* <Link href={paths.about} sx={{ display: 'block', color: 'white' }}>
                     Planifica tu visita
-                  </Link>
-                  <Link href={paths.contact} sx={{ display: 'block', color: 'white' }}>
+                  </Link> */}
+                  <Link
+                    href={getFullPath(paths.general.quienesSomos)}
+                    sx={{ display: 'block', color: 'white' }}
+                  >
                     Quiénes somos
                   </Link>
-                  <Link href={paths.faqs} sx={{ display: 'block', color: 'white' }}>
+                  {/* <Link
+                    href={getFullPath(paths[city as typeCity].)}
+                    sx={{ display: 'block', color: 'white' }}
+                  >
                     Conservación
-                  </Link>
-                  <Link href={paths.faqs} sx={{ display: 'block', color: 'white' }}>
+                  </Link> */}
+                  <Link
+                    href={getFullPath(paths[city as typeCity].terminosCondiciones)}
+                    sx={{ display: 'block', color: 'white' }}
+                  >
                     Términos y condiciones
                   </Link>
-                  <Link href={paths.faqs} sx={{ display: 'block', color: 'white' }}>
+                  <Link
+                    href={getFullPath(paths[city as typeCity].avisoPrivacidad)}
+                    sx={{ display: 'block', color: 'white' }}
+                  >
                     Aviso de privacidad
                   </Link>
                 </Box>
@@ -468,6 +482,7 @@ export type HomeFooterProps = {
 
 export function HomeFooter({ sx }: HomeFooterProps) {
   const smUp = useResponsive('up', 'sm');
+  const { city } = useCityStore();
   return (
     <Box
       sx={{
@@ -529,7 +544,7 @@ export function HomeFooter({ sx }: HomeFooterProps) {
           </Typography>
         </Typography>
         <Box>
-          {socialMedias.map((social) => (
+          {socialMedias(city).map((social) => (
             <IconButton key={social.href} href={social.href}>
               <social.Icon width={smUp ? 44 : 40} height={smUp ? 44 : 40} />
             </IconButton>

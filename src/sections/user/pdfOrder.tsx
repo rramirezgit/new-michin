@@ -7,6 +7,7 @@
 import JSPDF from 'jspdf';
 import dayjs from 'dayjs';
 import QRCode from 'qrcode';
+import utc from 'dayjs/plugin/utc';
 import html2canvas from 'html2canvas';
 import { useState, useEffect } from 'react';
 
@@ -21,6 +22,8 @@ import { useUserStore } from 'src/store/UserStore';
 import ButtonMichin from 'src/components/btn-michin';
 
 import type { OrderProps } from './view/typeOderd';
+
+dayjs.extend(utc);
 
 export interface Interaction {
   availabilityId?: string;
@@ -74,22 +77,11 @@ export default function GeneratePDF({
   const theme = useTheme();
   const smUp = useResponsive('up', 'sm');
 
-  // Generar QR al montar el componente
-  useEffect(() => {
-    const generateQR = async () => {
-      try {
-        const qrUrl = await QRCode.toDataURL(ticketId); // Usamos el ticketId para el QR
-        setQrCodeURL(qrUrl);
-      } catch (error) {
-        console.error('Error al generar el código QR:', error);
-      }
-    };
-    generateQR();
-  }, [ticketId]);
-
   const handleGeneratePDF = async () => {
     setLoading(true);
     const orderData = await orderByID(ticketId);
+    const qrUrl = await QRCode.toDataURL(orderData?.qrData || 'expirado'); // Usamos el ticketId para el QR
+    setQrCodeURL(qrUrl);
     setOrder(orderData);
   };
 
@@ -107,7 +99,7 @@ export default function GeneratePDF({
         format: [canvas.width, canvas.height],
       });
 
-      pdf.addImage(imgData, 'PNG', 100, 100, canvas.width - 200, canvas.height - 200);
+      pdf.addImage(imgData, 'PNG', 200, 200, canvas.width - 400, canvas.height - 400);
       pdf.save(`Michin-Orden-${order?.id}-${order?.customer.name}.pdf`);
     } catch (error) {
       console.error('Error al generar el PDF:', error);
@@ -118,7 +110,6 @@ export default function GeneratePDF({
 
   useEffect(() => {
     if (order) createPDF();
-    console.log(order);
   }, [order]);
 
   const renderInteractions = () =>
@@ -246,7 +237,7 @@ export default function GeneratePDF({
                             marginBottom: '10px',
                           }}
                         >
-                          Tu visita del {dayjs(order?.createdAt).format('DD/MM/YYYY')}
+                          Tu visita del {dayjs(order?.eventDate).utc().format('DD/MM/YYYY')}
                         </h3>
                         <table
                           width="80%"

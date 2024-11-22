@@ -4,6 +4,7 @@ import type { Breakpoint } from '@mui/material';
 import type { TicketUser } from 'src/store/UserStore';
 
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useState, useEffect } from 'react';
 
 import { useTheme } from '@mui/material/styles';
@@ -21,6 +22,8 @@ interface TicketMichinUserProps {
   product: TicketUser;
   disabled?: boolean | undefined;
 }
+
+dayjs.extend(utc);
 
 const TicketMichinUser = ({ product, disabled = false }: TicketMichinUserProps) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -40,6 +43,7 @@ const TicketMichinUser = ({ product, disabled = false }: TicketMichinUserProps) 
   const statusText: Record<string, string> = {
     PROCESSING: 'Procesando pago',
     FAILED: 'Pago fallido',
+    CHARGE_FAILED: 'Pago fallido',
     PAID: 'Pago exitoso',
   };
   const smUp = useResponsive('up', 'sm');
@@ -344,7 +348,7 @@ const TicketMichinUser = ({ product, disabled = false }: TicketMichinUserProps) 
               lineHeight: '20px',
             }}
           >
-            {dayjs(product.eventDate).format('ddd DD  MMMM YYYY')}
+            {dayjs(product.eventDate).utc().format('ddd DD MMMM YYYY')}
           </Typography>
         </Box>
         {access && (

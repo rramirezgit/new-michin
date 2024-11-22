@@ -180,40 +180,44 @@ const DialogTicket = ({
             gap: '10px',
           }}
         >
-          <Box
-            component={Typography}
-            sx={{
-              borderRadius: '5px',
-              height: '24px',
-              padding: '0 10px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'flex',
-              fontSize: '11px',
-              fontFamily: subtitleFont,
-              backgroundColor: '#1D518B',
-              width: 'max-content',
-            }}
-          >
-            {product.infoTag}
-          </Box>
-          <Box
-            component={Typography}
-            sx={{
-              borderRadius: '5px',
-              height: '24px',
-              padding: '0 10px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'flex',
-              fontSize: '11px',
-              fontFamily: subtitleFont,
-              backgroundColor: '#1D518B',
-              width: 'max-content',
-            }}
-          >
-            {product.descriptionTag}
-          </Box>
+          {product.infoTag && (
+            <Box
+              component={Typography}
+              sx={{
+                borderRadius: '5px',
+                height: '24px',
+                padding: '0 10px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
+                fontSize: '11px',
+                fontFamily: subtitleFont,
+                backgroundColor: '#1D518B',
+                width: 'max-content',
+              }}
+            >
+              {product.infoTag}
+            </Box>
+          )}
+          {product.descriptionTag && (
+            <Box
+              component={Typography}
+              sx={{
+                borderRadius: '5px',
+                height: '24px',
+                padding: '0 10px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
+                fontSize: '11px',
+                fontFamily: subtitleFont,
+                backgroundColor: '#1D518B',
+                width: 'max-content',
+              }}
+            >
+              {product.descriptionTag}
+            </Box>
+          )}
         </Box>
         <Box
           sx={{

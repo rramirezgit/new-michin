@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <AuthGuard>
+    <AuthGuard postLoginRedirectPath="/user">
       <UserView />
     </AuthGuard>
   );

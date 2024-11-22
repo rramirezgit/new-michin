@@ -15,14 +15,15 @@ import { useAuthContext } from '../hooks';
 
 type Props = {
   children: React.ReactNode;
+  postLoginRedirectPath?: string;
 };
 
-export function AuthGuard({ children }: Props) {
+export function AuthGuard({ children, postLoginRedirectPath }: Props) {
   const router = useRouter();
 
   const { loading } = useAuthContext();
 
-  const { isAuthenticated: authenticated } = useAuthStore();
+  const { isAuthenticated: authenticated, setPostLoginRedirectPath } = useAuthStore();
 
   const { fetchUser } = useUserStore();
   const [isChecking, setIsChecking] = useState<boolean>(true);
@@ -32,6 +33,7 @@ export function AuthGuard({ children }: Props) {
       await fetchUser();
       setIsChecking(false);
     } catch (error) {
+      setPostLoginRedirectPath(postLoginRedirectPath ?? '/');
       router.replace('/auth/login');
     }
   };

@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 
 import Stack from '@mui/material/Stack';
 
+import { useRouter } from 'src/routes/hooks';
+
 import { MainLayout } from 'src/layouts/main';
+import useAuthStore from 'src/store/AuthStore';
 import { Footer } from 'src/layouts/main/footer';
 import { useCityStore } from 'src/store/useCityStore';
 
@@ -24,7 +27,9 @@ import DescubreNuestraDiversidad from './DescubreNuestraDiversidad';
 
 export function LandingMichin() {
   const [showSelectedCity, setShowSelectedCity] = useState(false);
+  const { postLoginRedirectPath, setPostLoginRedirectPath } = useAuthStore();
   const { city } = useCityStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (city === '') {
@@ -32,6 +37,11 @@ export function LandingMichin() {
     } else {
       setShowSelectedCity(false);
     }
+    if (postLoginRedirectPath && postLoginRedirectPath.length > 0) {
+      router.push(postLoginRedirectPath);
+      setPostLoginRedirectPath('');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city]);
 
   if (showSelectedCity) return <CitySelector />;

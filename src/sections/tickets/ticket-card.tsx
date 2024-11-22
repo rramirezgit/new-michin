@@ -199,28 +199,31 @@ const TicketMichin = ({ product, disabled = false }: TicketMichinProps) => {
           {product.age && renderEdad}
         </Box>
       </Box>
-      <Box
-        component={Typography}
-        sx={{
-          borderRadius: '5px',
-          height: '24px',
-          padding: '0 10px',
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
-          fontSize: '12px',
-          fontFamily: subtitleFont,
-          backgroundColor: '#1D518B',
-          width: 'max-content',
-        }}
-      >
-        {product.infoTag}
-      </Box>
+      {product.infoTag && (
+        <Box
+          component={Typography}
+          sx={{
+            borderRadius: '5px',
+            height: '24px',
+            padding: '0 10px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
+            fontSize: '12px',
+            fontFamily: subtitleFont,
+            backgroundColor: '#1D518B',
+            width: 'max-content',
+          }}
+        >
+          {product.infoTag}
+        </Box>
+      )}
       <Typography
         sx={{
           fontFamily: subtitleFont,
           color: '#808A94',
           fontSize: '12px',
+          flex: 1,
           minHeight: '76px',
           maxWidth: '95%',
         }}
@@ -286,6 +289,7 @@ const TicketMichin = ({ product, disabled = false }: TicketMichinProps) => {
       sx={{
         width: '100%',
         height: 'max-content',
+        minHeight: '256px',
         gap: '11.9px',
         backgroundImage: {
           xs: 'url(/assets/images/tickets/boletoMobile.png)',

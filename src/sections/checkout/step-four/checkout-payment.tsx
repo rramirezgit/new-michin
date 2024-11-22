@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import type { typeCity } from 'src/layouts/main/footer';
+
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
@@ -7,6 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Card, Link, Checkbox, FormGroup, Typography, FormControlLabel } from '@mui/material';
 
+import { paths, getFullPath } from 'src/routes/paths';
+
+import { useCityStore } from 'src/store/useCityStore';
 import { useTicketStore } from 'src/store/ticketsStore';
 
 import HeaderSection from './checkout-form-header';
@@ -22,6 +27,7 @@ import type { FormData } from './checkout-payment-accordion';
 
 export function CheckoutPayment() {
   const { maxAdultCount, setOrderCheckout, orderCheckout } = useTicketStore();
+  const { city } = useCityStore();
 
   const [expandedTicketId, setExpandedTicketId] = useState<number | null>(null);
 
@@ -149,7 +155,7 @@ export function CheckoutPayment() {
               Sus datos personales se utilizarán para procesar su pedido, respaldar su experiencia
               en este sitio web y para otros fines descritos en nuestro{' '}
               <Link
-                href="https://example.com/politicas-privacidad"
+                href={getFullPath(paths[city as typeCity].avisoPrivacidad)}
                 target="_blank"
                 rel="noopener"
                 sx={{
@@ -187,7 +193,7 @@ export function CheckoutPayment() {
                   >
                     He leído y estoy de acuerdo con los{' '}
                     <Link
-                      href="https://example.com/terminos-condiciones"
+                      href={getFullPath(paths[city as typeCity].terminosCondiciones)}
                       target="_blank"
                       rel="noopener"
                       sx={{

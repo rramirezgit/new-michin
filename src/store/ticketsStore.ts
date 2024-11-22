@@ -75,7 +75,6 @@ export interface OrderCheckout {
   customer?: {
     name?: string;
     lastName?: string;
-    email?: string;
     phone?: string;
     zipCode?: string;
     birthDate?: string;
@@ -159,7 +158,6 @@ export const useTicketStore = create<State & Action>((set, get): any => {
     customer: {
       name: '',
       lastName: '',
-      email: '',
       phone: '',
       zipCode: '',
       birthDate: '',
@@ -378,7 +376,7 @@ export const useTicketStore = create<State & Action>((set, get): any => {
         return response.data;
       } catch (error) {
         console.error('Error al crear orden:', error);
-        return null;
+        throw error;
       }
     },
 
