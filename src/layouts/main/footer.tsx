@@ -343,7 +343,13 @@ export function Footer({ layoutQuery = 'md', sx, showSelectCity = false }: Foote
                   hoverBgColor={theme.palette.primary.main}
                   border="none"
                   onClick={() => {
-                    router.push(paths.michin.tickets);
+                    if (city === 'CDMX') {
+                      router.push(paths.michin.tickets);
+                    } else if (city === 'GDL') {
+                      window.open(process.env.NEXT_PUBLIC_URL_TIENDA_GDL, '_blank');
+                    } else if (city === 'PUE') {
+                      window.open(process.env.NEXT_PUBLIC_URL_TIENDA_PUE, '_blank');
+                    }
                   }}
                   sx={{
                     fontSize: {

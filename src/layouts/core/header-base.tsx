@@ -228,9 +228,9 @@ export function HeaderBase({
                     if (city === 'CDMX') {
                       navigate.push(paths.michin.tickets);
                     } else if (city === 'GDL') {
-                      window.open('https://www.michin.com.mx/tienda-guadalajara', '_blank');
+                      window.open(process.env.NEXT_PUBLIC_URL_TIENDA_GDL, '_blank');
                     } else if (city === 'PUE') {
-                      window.open('https://www.michin.com.mx/tienda-puebla', '_blank');
+                      window.open(process.env.NEXT_PUBLIC_URL_TIENDA_PUE, '_blank');
                     }
                   }}
                   color="common.darkBlue"

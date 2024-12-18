@@ -193,7 +193,15 @@ export function NavMobile({
             <Box gap={1.5} display="flex" sx={{ px: 2.5, mb: 2, flexDirection: 'column', gap: 1 }}>
               <ButtonMichin
                 h={50}
-                onClick={() => router.push('/tickets')}
+                onClick={() => {
+                  if (city === 'CDMX') {
+                    router.push(paths.michin.tickets);
+                  } else if (city === 'GDL') {
+                    window.open(process.env.NEXT_PUBLIC_URL_TIENDA_GDL, '_blank');
+                  } else if (city === 'PUE') {
+                    window.open(process.env.NEXT_PUBLIC_URL_TIENDA_PUE, '_blank');
+                  }
+                }}
                 color="common.darkBlue"
                 InitialBgColor="common.white"
                 border="none"

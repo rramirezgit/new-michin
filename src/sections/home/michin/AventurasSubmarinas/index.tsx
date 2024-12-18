@@ -7,6 +7,9 @@ import bgLinea from '#/assets/background/michin/topAventurasSubmarinas.png';
 import { useTheme } from '@mui/material/styles';
 import { Box, Container, Typography } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { useCityStore } from 'src/store/useCityStore';
@@ -106,6 +109,8 @@ interface CarouselItemProps {
 function CarouselItem({ item }: CarouselItemProps) {
   const theme = useTheme();
   const smUp = useResponsive('up', 'sm');
+  const { city } = useCityStore();
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -192,6 +197,15 @@ function CarouselItem({ item }: CarouselItemProps) {
         color="common.darkBlue"
         InitialBgColor={theme.palette.secondary.main}
         hoverBgColor={theme.palette.primary.main}
+        onClick={() => {
+          if (city === 'CDMX') {
+            router.push(paths.michin.tickets);
+          } else if (city === 'GDL') {
+            window.open(process.env.NEXT_PUBLIC_URL_TIENDA_GDL, '_blank');
+          } else if (city === 'PUE') {
+            window.open(process.env.NEXT_PUBLIC_URL_TIENDA_PUE, '_blank');
+          }
+        }}
         border="none"
         sx={{
           fontSize: {

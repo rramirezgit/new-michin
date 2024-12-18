@@ -25,7 +25,7 @@ export const getSocialMediaPath = (
 
 // 'CDMX' | 'GDL' | 'PUE'
 export const paths = {
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || '', // Asegúrate de usar tu variable de entorno aquí
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL_EXTERNAL || '',
   michin: {
     tickets: '/tickets',
     user: {
